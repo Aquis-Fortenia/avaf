@@ -40,51 +40,6 @@
           ]
         }
       ]
-    },
-	{
-      "name": "Familie Backup",
-      "beschreibung": "Die älteste und größte Bierfamilie unserer Verbindung.",
-      "mitglieder": [
-        {
-          "name": "Max Mustermann",
-          "status": "Alter Herr",
-          "kinder": [
-            {
-              "name": "Erika Musterfrau",
-              "status": "Bursch",
-              "kinder": [
-				{
-				  "name": "Erika Musterfrau",
-				  "status": "Bursch",
-				  "kinder": [
-					{
-					  "name": "Fritz Fuchs",
-					  "status": "Fux",
-					  "kinder": []
-					}
-				  ]
-				},
-				{
-				  "name": "Hans Dampf",
-				  "status": "Bursch",
-				  "kinder": [
-					{
-					  "name": "Klaus Kneipe",
-					  "status": "Fux",
-					  "kinder": []
-					},
-					{
-					  "name": "Klaus Kneipe",
-					  "status": "Fux",
-					  "kinder": []
-					}
-				  ]
-				}
-			  ]
-            }
-          ]
-        }
-      ]
     }
   ]
 }
