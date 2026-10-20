@@ -99,14 +99,16 @@
 						<header id="kontaktformular">
 							<h3><center>Kontaktformular</center></h3>
 						</header>
+						<!-- Erfolgsmeldung Box (wird bei #success eingeblendet) -->
+						<div id="success-message" style="display: none; background: rgba(120, 142, 194, 0.15); border: 1px solid #788ec2; border-radius: 6px; padding: 1.5em; margin-bottom: 2em; text-align: center;">
+							<h3 style="color: #788ec2; margin-bottom: 0.5em;">Vielen Dank für deine Nachricht!</h3>
+							<p style="margin: 0; font-size: 1em; color: #ffffff;">Deine Anfrage wurde erfolgreich versendet. Wir werden uns zeitnah bei dir melden!</p>
+						</div>
 						<!-- Form -->
 							<section>
 								<form action="https://api.web3forms.com/submit" method="POST">
-									
-									<!-- HIER DEINEN ACCESS KEY VON WEB3FORMS EINFÜGEN -->
-									<input type="hidden" name="access_key" value="af60d0af-a739-4413-8748-9bdfcc6760d3">
-
-									<!-- Unsichtbarer Spam-Schutz (Honeypot) -->
+									<input type="hidden" name="access_key" value="214051f4-7cb1-450c-a63e-8b2c1f44f105">
+									<input type="hidden" name="redirect" value="https://www.aquis-fortenia.de/contact.html#success">
 									<input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
 									<div class="row gtr-uniform gtr-50">
@@ -164,7 +166,21 @@
 					}
 				}
 
-				window.onload = getEmailFromURL; // Ruft die Funktion beim Laden der Seite auf
+				// Prüft ob #success in der URL vorhanden ist und zeigt die Box an
+				function checkSuccessHash() {
+					if (window.location.hash === '#success') {
+						const successBox = document.getElementById('success-message');
+						if (successBox) {
+							successBox.style.display = 'block';
+							successBox.scrollIntoView({ behavior: 'smooth' });
+						}
+					}
+				}
+
+				window.addEventListener('load', function() {
+					getEmailFromURL();
+					checkSuccessHash();
+				});
 			</script>
 			<style>
 				.hover-effect {
