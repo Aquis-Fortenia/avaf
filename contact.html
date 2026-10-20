@@ -106,9 +106,8 @@
 						</div>
 						<!-- Form -->
 							<section>
-								<form action="https://api.web3forms.com/submit" method="POST">
+								<form id="contact-form">
 									<input type="hidden" name="access_key" value="214051f4-7cb1-450c-a63e-8b2c1f44f105">
-									<input type="hidden" name="redirect" value="https://www.aquis-fortenia.de/contact.html#success">
 									<input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
 									<div class="row gtr-uniform gtr-50">
@@ -130,7 +129,8 @@
 										</div>
 										<div class="col-12">
 											<ul class="actions">
-												<li><input type="submit" name="commit" value="Senden" class="primary" /></li>
+												<!-- Der Button kriegt eine ID, damit wir ihn während des Sendens sperren können -->
+												<li><input type="submit" id="submit-btn" value="Senden" class="primary" /></li>
 												<li><input type="reset" value="Reset" /></li>
 											</ul>
 										</div>
@@ -155,31 +155,68 @@
 
 		</div>
 		
-		<!-- Scripts -->
+			<!-- Scripts -->
 			<script>
-				// Funktion zum Auslesen von URL-Parametern
+				// Funktion zum Auslesen von URL-Parametern (für vorausgefüllte E-Mails)
 				function getEmailFromURL() {
 					const params = new URLSearchParams(window.location.search);
 					const email = params.get('email');
 					if (email) {
-						document.getElementById('email').value = email; // Setzt die E-Mail im Eingabefeld
-					}
-				}
-
-				// Prüft ob #success in der URL vorhanden ist und zeigt die Box an
-				function checkSuccessHash() {
-					if (window.location.hash === '#success') {
-						const successBox = document.getElementById('success-message');
-						if (successBox) {
-							successBox.style.display = 'block';
-							successBox.scrollIntoView({ behavior: 'smooth' });
-						}
+						document.getElementById('email').value = email;
 					}
 				}
 
 				window.addEventListener('load', function() {
 					getEmailFromURL();
-					checkSuccessHash();
+
+					// AJAX Formular-Absendung
+					const form = document.getElementById('contact-form');
+					const successBox = document.getElementById('success-message');
+					const submitBtn = document.getElementById('submit-btn');
+
+					form.addEventListener('submit', function(e) {
+						e.preventDefault(); // Verhindert das Standard-Neuladen der Seite
+
+						// Button temporär sperren, um Doppelclicks zu verhindern
+						submitBtn.value = "Wird gesendet...";
+						submitBtn.disabled = true;
+
+						const formData = new FormData(form);
+						const object = Object.fromEntries(formData);
+						const json = JSON.stringify(object);
+
+						fetch('https://api.web3forms.com/submit', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+								'Accept': 'application/json'
+							},
+							body: json
+						})
+						.then(async (response) => {
+							let jsonRes = await response.json();
+							if (response.status == 200) {
+								// Erfolg! Formular zurücksetzen
+								form.reset();
+								// Erfolgsbox einblenden
+								if (successBox) {
+									successBox.style.display = 'block';
+									successBox.scrollIntoView({ behavior: 'smooth' });
+								}
+							} else {
+								alert(jsonRes.message || "Ein Fehler ist aufgetreten.");
+							}
+						})
+						.catch(error => {
+							console.log(error);
+							alert("Netzwerkfehler beim Senden der Nachricht.");
+						})
+						.finally(() => {
+							// Button wiederherstellen
+							submitBtn.value = "Senden";
+							submitBtn.disabled = false;
+						});
+					});
 				});
 			</script>
 			<style>
