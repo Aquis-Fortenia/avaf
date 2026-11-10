@@ -6,6 +6,7 @@
       "mitglieder": [
         {
           "name": "Spectre",
+		  "bild": "images/members/empty.jpg",
           "status": "AB",
           "kinder": [
           ]
@@ -18,10 +19,12 @@
       "mitglieder": [
         {
           "name": "Jekyll",
+		  "bild": "images/members/empty.jpg",
           "status": "AB",
           "kinder": [
             {
               "name": "Whimsy",
+			  "bild": "images/members/empty.jpg",
               "status": "AB",
               "kinder": []
             }
@@ -35,6 +38,7 @@
       "mitglieder": [
         {
           "name": "Freud",
+		  "bild": "images/members/empty.jpg",
           "status": "AB",
           "kinder": [
           ]
