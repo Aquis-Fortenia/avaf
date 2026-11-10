@@ -19,7 +19,7 @@
       "mitglieder": [
         {
           "name": "Jekyll",
-		  "bild": "images/members/empty.jpg",
+		  "bild": "images/members/jekyll.jpg",
           "status": "AB",
           "kinder": [
             {
@@ -38,7 +38,7 @@
       "mitglieder": [
         {
           "name": "Freud",
-		  "bild": "images/members/empty.jpg",
+		  "bild": "images/members/freud.jpg",
           "status": "AB",
           "kinder": [
           ]
